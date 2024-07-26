@@ -1,0 +1,18 @@
+//Abstracts
+@use "./styles/abstracts/variables";
+@use "./styles/abstracts/mediaQueries";
+@use "./styles/abstracts/utilities";
+
+//base
+@use "./styles/base/reset";
+@use "./styles/base/typography";
+
+// components
+@use "./styles/components/header";
+@use "./styles/components/styledDropZone";
+@use "./styles/components/ngo-login";
+//pages
+@use "./styles/pages/home";
+@use "./styles/pages/report-incident";
+@use "./styles/pages/register-ngo";
+@use "./styles/pages/ngo-management";

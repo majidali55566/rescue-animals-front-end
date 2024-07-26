@@ -1,0 +1,49 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mediaQueries" as *;
+.registration-container {
+  padding-top: 4rem;
+
+  @include md {
+    padding-top: 5rem;
+  }
+  h1 {
+    color: $clr-neutral-900;
+    text-align: center;
+    padding-block: 5rem;
+  }
+  .registration-form {
+    padding-inline: $app-padding-400;
+
+    @include md {
+      padding-inline: $app-padding-500;
+    }
+    @include lg {
+      padding-inline: $app-padding-600;
+    }
+    display: flex;
+    flex-direction: column;
+    @include sm {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    gap: 1rem;
+    .form-group {
+      display: grid;
+      @include md {
+        display: grid;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      textarea {
+        border: 1px solid $clr-neutral-800;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+      }
+    }
+    button {
+      grid-column: span 2;
+      max-width: none;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@use "../abstracts/variables" as *;
+.login-container {
+  display: grid;
+  height: 100vh;
+  place-content: center;
+  .login-form {
+    display: grid;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: $box-shadow-400;
+    .form-group {
+      display: grid;
+      gap: 0.5rem;
+      input {
+        border: 1px solid $clr-neutral-800;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        width: 100%;
+      }
+    }
+  }
+}

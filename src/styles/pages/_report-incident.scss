@@ -1,0 +1,19 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mediaQueries" as *;
+.report-incident {
+  padding-top: 7rem;
+  padding-inline: $app-padding-400;
+  @include md {
+    padding-inline: $app-padding-500;
+    padding-top: 9rem;
+  }
+  @include lg {
+    padding-inline: $app-padding-600;
+  }
+  input[type="text"],
+  input[type="email"] {
+    border: 1px solid $clr-neutral-800;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+}

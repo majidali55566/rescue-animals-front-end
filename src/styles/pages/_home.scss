@@ -1,0 +1,83 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mediaQueries" as *;
+@mixin section-padding {
+  padding-inline: $app-padding-400;
+  padding-block: 4rem;
+  @include md {
+    padding-inline: $app-padding-500;
+  }
+  @include lg {
+    padding-inline: $app-padding-600;
+  }
+}
+.home-page {
+  padding-top: 4.2rem;
+  @include md {
+    padding-top: 6.1rem;
+  }
+  .welcome {
+    @include section-padding();
+    display: grid;
+    gap: 1rem;
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .easy-reporting {
+    @include section-padding();
+    background-color: $clr-neutral-700;
+    @include md {
+      display: grid;
+      align-items: center;
+    }
+    @include lg {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    h1 {
+      line-height: 1.2;
+      @media (max-width: 375px) {
+        font-size: 2.4rem;
+      }
+    }
+
+    img {
+      border-radius: 0.5rem;
+      box-shadow: $box-shadow-400;
+      object-fit: cover;
+    }
+    @include md {
+      flex-direction: row;
+    }
+  }
+  .cases-solved {
+    @include section-padding();
+    display: grid;
+    gap: 2rem;
+  }
+  .our-colloborators {
+    @include section-padding();
+    background-color: $clr-neutral-700;
+    display: grid;
+    gap: 1rem;
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+    }
+  }
+  .real-time-alerts {
+    @include section-padding();
+    display: grid;
+    gap: 1rem;
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+    }
+  }
+  .carousel {
+    padding: 0;
+  }
+}
