@@ -11,9 +11,11 @@
     padding-inline: $app-padding-600;
   }
   .new-case-container {
-    display: flex;
+    display: grid;
     gap: 2rem;
-
+    @include md {
+      display: flex;
+    }
     .care-card {
       max-width: 20rem;
       display: grid;
@@ -22,7 +24,6 @@
       position: relative;
       border-radius: 1rem;
       background-color: $clr-neutral-600;
-
       .badge-container {
         position: absolute;
         right: 0;

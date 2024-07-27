@@ -144,10 +144,10 @@ function CaseManagement() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Typography variant="h4" gutterBottom>
-        New Cases
-      </Typography>
       <div className="new-case-container">
+        <Typography variant="h4" gutterBottom>
+          New Cases
+        </Typography>
         <div className="care-card">
           <div className="badge-container">
             <StatusBadge status={initialCasesData[2].status} />
@@ -168,7 +168,10 @@ function CaseManagement() {
           <img src="/images/injured-animal.jpg" />
           <div className="d-flex justify-between">
             <p>Injury Description...</p>
-            <button className="btn d-flex items-center gap-400">
+            <button
+              onClick={() => handleEdit(initialCasesData[2])}
+              className="btn d-flex items-center gap-400"
+            >
               <Visibility />
               view
             </button>

@@ -50,7 +50,7 @@ const CaseDetailsModal = ({
         },
       }}
     >
-      <h3>Animal Type: {caseData?.animalType}</h3>
+      <h2>Animal: {caseData?.animalType}</h2>
       <div
         style={{
           display: "flex",
@@ -73,31 +73,34 @@ const CaseDetailsModal = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "1rem",
+        gap: "3rem",
         minWidth: "300px",
         // Adjust max width to fit smaller screens
         "@media (max-width: 600px)": {},
       }}
     >
       <div className="d-flex items-center gap-400">
-        <p className="fs-700">Injury Description:</p>
-        <p className="fs-700">{caseData?.injuryDescription}</p>
+        <p className="fs-800">Injury Description:</p>
+        <p className="fs-800">{caseData?.injuryDescription}</p>
       </div>
-      <div>
-        <p className="fs-700">Location of incident</p>
+      <div className="d-flex flex-column gap-400">
+        <p className="fs-800">Location of injured Animal</p>
         <LocationMarker caseLocation={caseData?.location} />
       </div>
+      <p className="fs-800">Images of Injured animal</p>
       <div className="container">
-        <Carousel showThumbs={true} selectedItem={0}>
-          {caseData?.images.map((item, index) => (
-            <img
-              key={item}
-              style={{ objectFit: "cover", maxHeight: "400px" }}
-              src={item.url}
-              alt={`Animal Image ${index + 1}`}
-            />
-          ))}
-        </Carousel>
+        <div className="images-container">
+          <Carousel showThumbs={true} selectedItem={0}>
+            {caseData?.images.map((item, index) => (
+              <img
+                key={item}
+                style={{ objectFit: "cover", maxHeight: "400px" }}
+                src={item.url}
+                alt={`Animal Image ${index + 1}`}
+              />
+            ))}
+          </Carousel>
+        </div>
         <div
           style={{
             display: "flex",
@@ -143,9 +146,6 @@ const CaseDetailsModal = ({
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        "@media (max-width: 600px)": {
-          flexDirection: "column",
-        },
       }}
     >
       <Button onClick={onClose} color="secondary">
