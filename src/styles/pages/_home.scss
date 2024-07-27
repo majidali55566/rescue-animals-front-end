@@ -1,23 +1,16 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mediaQueries" as *;
-@mixin section-padding {
-  padding-inline: $app-padding-400;
-  padding-block: 4rem;
-  @include md {
-    padding-inline: $app-padding-500;
-  }
-  @include lg {
-    padding-inline: $app-padding-600;
-  }
-}
+@use "../abstracts/mixin" as *;
+
 .home-page {
   padding-top: 4.2rem;
   @include md {
     padding-top: 6.1rem;
   }
   .welcome {
-    @include section-padding();
+    @include section-padding;
     display: grid;
+    align-items: center;
     gap: 1rem;
     @include md {
       grid-template-columns: repeat(2, 1fr);
@@ -66,6 +59,10 @@
     @include md {
       grid-template-columns: repeat(2, 1fr);
       align-items: center;
+    }
+    p,
+    h1 {
+      color: $clr-neutral-100;
     }
   }
   .real-time-alerts {

@@ -1,8 +1,8 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mediaQueries" as *;
+@use "../abstracts/mixin" as *;
 .registration-container {
-  padding-top: 4rem;
-
+  @include section-padding;
   @include md {
     padding-top: 5rem;
   }
@@ -12,14 +12,6 @@
     padding-block: 5rem;
   }
   .registration-form {
-    padding-inline: $app-padding-400;
-
-    @include md {
-      padding-inline: $app-padding-500;
-    }
-    @include lg {
-      padding-inline: $app-padding-600;
-    }
     display: flex;
     flex-direction: column;
     @include sm {
@@ -32,13 +24,18 @@
       @include md {
         display: grid;
       }
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      textarea {
-        border: 1px solid $clr-neutral-800;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+      border: 1px solid $clr-neutral-800;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      &:hover,
+      :active,
+      :active {
+        border: 2px solid $clr-primary-400;
       }
     }
     button {

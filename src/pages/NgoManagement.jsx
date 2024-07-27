@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CaseManagement from "../components/Ngo/CaseManagement";
 import { Link } from "react-router-dom";
+import VolunteerManagement from "../components/Ngo/VolunteerManagement";
 function NgoManagement() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
@@ -31,9 +32,8 @@ function NgoManagement() {
         />
       </header>
       <div className="ngo-management-container">
-        <section>
-          <CaseManagement />
-        </section>
+        <CaseManagement />
+        <VolunteerManagement />
       </div>
     </>
   );

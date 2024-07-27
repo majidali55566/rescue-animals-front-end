@@ -1,37 +1,44 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mediaQueries" as *;
+@use "../abstracts/mixin" as *;
 .ngo-management-container {
   padding-top: 7rem;
-  padding-inline: $app-padding-400;
   @include md {
-    padding-inline: $app-padding-500;
     padding-top: 9rem;
   }
-  @include lg {
-    padding-inline: $app-padding-600;
-  }
   .new-case-container {
-    display: grid;
-    gap: 2rem;
-    @include md {
+    @include section-padding;
+    padding-top: 0;
+    .new-cases {
       display: flex;
-    }
-    .care-card {
-      max-width: 20rem;
-      display: grid;
-      gap: 1rem;
-      padding: 1rem;
-      position: relative;
-      border-radius: 1rem;
-      background-color: $clr-neutral-600;
-      .badge-container {
-        position: absolute;
-        right: 0;
-        border: 2px solid white;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      @include md {
+        display: flex;
+        justify-content: flex-start;
       }
-      img {
+      .care-card {
+        max-width: 20rem;
+        display: grid;
+        gap: 1rem;
+        padding: 1rem;
+        position: relative;
         border-radius: 1rem;
+        background-color: $clr-neutral-600;
+        .badge-container {
+          position: absolute;
+          right: 0;
+          border: 2px solid white;
+        }
+        img {
+          border-radius: 1rem;
+        }
       }
     }
+  }
+
+  .volunteer-management {
   }
 }

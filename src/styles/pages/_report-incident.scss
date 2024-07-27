@@ -11,9 +11,16 @@
     padding-inline: $app-padding-600;
   }
   input[type="text"],
-  input[type="email"] {
+  input[type="email"],
+  input[type="password"],
+  textarea {
     border: 1px solid $clr-neutral-800;
     border-radius: 0.5rem;
     padding: 0.5rem;
+    &:hover,
+    :active,
+    :active {
+      border: 2px solid $clr-primary-400;
+    }
   }
 }

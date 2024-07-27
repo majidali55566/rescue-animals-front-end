@@ -4,16 +4,15 @@ import Header from "../components/Header";
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
-  name: Yup.string().required("NGO Name is required"),
+  name: Yup.string().required("ngo name is required"),
   email: Yup.string()
-    .email("Invalid email address")
+    .email("invalid email address")
     .required("Email is required"),
   password: Yup.string().required("Password is required"),
   address: Yup.string().required("Address is required"),
   location: Yup.string().required("Location is required"),
   pincode: Yup.string().required("Pincode is required"),
   mobile: Yup.string().required("Mobile Number is required"),
-  volunteers: Yup.string().required("Volunteer details are required"),
 });
 
 const NGORegistrationPage = () => {
@@ -94,15 +93,7 @@ const NGORegistrationPage = () => {
                 <Field type="text" id="mobile" name="mobile" />
                 <ErrorMessage name="mobile" component="div" className="error" />
               </div>
-              <div className="form-group">
-                <label htmlFor="volunteers">Volunteers (Name & Contact):</label>
-                <Field as="textarea" id="volunteers" name="volunteers" />
-                <ErrorMessage
-                  name="volunteers"
-                  component="div"
-                  className="error"
-                />
-              </div>
+
               <button type="submit" className="btn" disabled={isSubmitting}>
                 Register
               </button>

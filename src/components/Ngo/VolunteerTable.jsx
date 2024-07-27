@@ -2,10 +2,9 @@
 import { Visibility } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import { useMemo } from "react";
-import StatusBadge from "./StatusBadge";
 import { MaterialReactTable } from "material-react-table";
 
-function CasesTable({ data, handleEdit }) {
+function VolunteersTable({ data, handleEdit }) {
   const columns = useMemo(
     () => [
       {
@@ -14,28 +13,24 @@ function CasesTable({ data, handleEdit }) {
         size: 50,
       },
       {
-        accessorKey: "animalType",
-        header: "Animal Type",
+        accessorKey: "name",
+        header: "Name",
         size: 150,
       },
       {
-        accessorKey: "injuryDescription",
-        header: "Injury Description",
+        accessorKey: "email",
+        header: "Email",
         size: 200,
       },
       {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "location",
+        header: "Location",
         size: 150,
-        sortType: (a, b) => {
-          const statusOrder = {
-            Recoverd: 1,
-            "Under Care": 2,
-            New: 3,
-          };
-          return (statusOrder[a] || 0) - (statusOrder[b] || 0);
-        },
-        Cell: ({ cell }) => <StatusBadge status={cell.getValue()} />,
+      },
+      {
+        accessorKey: "mobile",
+        header: "Mobile",
+        size: 150,
       },
       {
         id: "actions",
@@ -62,6 +57,7 @@ function CasesTable({ data, handleEdit }) {
     ],
     []
   );
+
   return (
     <MaterialReactTable
       columns={columns}
@@ -78,4 +74,4 @@ function CasesTable({ data, handleEdit }) {
   );
 }
 
-export default CasesTable;
+export default VolunteersTable;

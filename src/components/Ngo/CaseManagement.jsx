@@ -8,6 +8,7 @@ import CaseTabs from "./CaseTabs";
 import CasesTable from "./CasesTable";
 import StatusBadge from "./StatusBadge";
 import { Visibility } from "@mui/icons-material";
+import VolunteerRegisterForm from "../form/VolunteerRegisterForm";
 // Example data
 const initialCasesData = [
   {
@@ -63,7 +64,7 @@ const initialCasesData = [
     id: 6,
     animalType: "Horse",
     injuryDescription: "Infected wound",
-    status: "New case",
+    status: "New",
     location: { lat: 51.5074, lng: -0.1278 },
     reporterInfo: {
       name: "Majid",
@@ -83,7 +84,7 @@ const initialCasesData = [
     id: 4,
     animalType: "Horse",
     injuryDescription: "Infected wound",
-    status: "New case",
+    status: "New",
     location: { lat: 51.5074, lng: -0.1278 },
     reporterInfo: {
       name: "Majid",
@@ -124,7 +125,7 @@ function CaseManagement() {
       case 0:
         return casesData; // All cases
       case 1:
-        return casesData.filter((caseItem) => caseItem.status === "New case"); // New cases
+        return casesData.filter((caseItem) => caseItem.status === "New"); // New cases
       case 2:
         return casesData.filter((caseItem) => caseItem.status === "UnderCare"); // Under Care cases
       case 3:
@@ -143,53 +144,62 @@ function CaseManagement() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
       <div className="new-case-container">
         <Typography variant="h4" gutterBottom>
           New Cases
         </Typography>
-        <div className="care-card">
-          <div className="badge-container">
-            <StatusBadge status={initialCasesData[2].status} />
+        <div className="new-cases">
+          <div className="care-card">
+            <div className="badge-container">
+              <StatusBadge status={initialCasesData[2].status} />
+            </div>
+            <img src="/images/injured-animal.jpg" />
+            <div className="d-flex justify-between">
+              <p>Injury Description...</p>
+              <button className="btn d-flex items-center gap-400">
+                <Visibility />
+                view
+              </button>
+            </div>
           </div>
-          <img src="/images/injured-animal.jpg" />
-          <div className="d-flex justify-between">
-            <p>Injury Description...</p>
-            <button className="btn d-flex items-center gap-400">
-              <Visibility />
-              view
-            </button>
-          </div>
-        </div>
-        <div className="care-card">
-          <div className="badge-container">
-            <StatusBadge status={initialCasesData[2].status} />
-          </div>
-          <img src="/images/injured-animal.jpg" />
-          <div className="d-flex justify-between">
-            <p>Injury Description...</p>
-            <button
-              onClick={() => handleEdit(initialCasesData[2])}
-              className="btn d-flex items-center gap-400"
-            >
-              <Visibility />
-              view
-            </button>
+          <div className="care-card">
+            <div className="badge-container">
+              <StatusBadge status={initialCasesData[2].status} />
+            </div>
+            <img src="/images/injured-animal.jpg" />
+            <div className="d-flex justify-between">
+              <p>Injury Description...</p>
+              <button
+                onClick={() => handleEdit(initialCasesData[2])}
+                className="btn d-flex items-center gap-400"
+              >
+                <Visibility />
+                view
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <Typography variant="h4" gutterBottom>
-        Manage Case
-      </Typography>
-      <CaseTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
-      <CasesTable data={filteredCasesData} handleEdit={handleEdit} />
-      <CaseDetailsModal
-        open={editModalOpen}
-        isFullScreen={isFullScreen}
-        onClose={() => setEditModalOpen(false)}
-        caseData={currentCase}
-        onSave={handleSaveEdit}
-      />
+      <div className="case-management d-flex flex-column">
+        <Typography variant="h4" sx={{ textAlign: "center" }} gutterBottom>
+          All Cases
+        </Typography>
+        <div className="content">
+          <CaseTabs
+            selectedTab={selectedTab}
+            handleTabChange={handleTabChange}
+          />
+          <CasesTable data={filteredCasesData} handleEdit={handleEdit} />
+          <CaseDetailsModal
+            open={editModalOpen}
+            isFullScreen={isFullScreen}
+            onClose={() => setEditModalOpen(false)}
+            caseData={currentCase}
+            onSave={handleSaveEdit}
+          />
+        </div>
+      </div>
     </div>
   );
 }

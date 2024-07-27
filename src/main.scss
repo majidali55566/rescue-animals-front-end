@@ -2,6 +2,7 @@
 @use "./styles/abstracts/variables";
 @use "./styles/abstracts/mediaQueries";
 @use "./styles/abstracts/utilities";
+@use "./styles/abstracts/mixin";
 
 //base
 @use "./styles/base/reset";

@@ -10,7 +10,7 @@ const StatusBadge = ({ status }) => {
         return "hsl(129, 61%, 52%)"; // Green
       case "UnderCare":
         return "warning.main"; // Yellow
-      case "New case":
+      case "New":
         return "red";
       default:
         return "grey.500"; // Grey for unknown status
@@ -34,12 +34,15 @@ const StatusBadge = ({ status }) => {
       }}
     >
       {status}
-      {status === "New case" && (
-        <div style={{ position: "relative", display: "inline-block" }}>
+      {status === "New" && (
+        <div
+          style={{
+            display: "inline-block",
+          }}
+        >
           <NotificationsActive
             style={{
-              fontSize: "1.4rem",
-              fontWeight: "700",
+              fontSize: ".7rem",
               color: "white",
               animation: "pulse 1.5s infinite",
             }}

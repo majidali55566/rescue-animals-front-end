@@ -130,7 +130,6 @@ function ReportIncidentForm() {
               type="text"
               value={animalType}
               onChange={handleInputChange}
-              placeholder="Type"
             />
             {errors.animalType && <p className="error">{errors.animalType}</p>}
           </div>
@@ -141,7 +140,6 @@ function ReportIncidentForm() {
               id="description"
               value={injuryDescription}
               onChange={handleInputChange}
-              placeholder="Description..."
             />
             {errors.injuryDescription && (
               <p className="error">{errors.injuryDescription}</p>
@@ -173,7 +171,6 @@ function ReportIncidentForm() {
                 id="name"
                 value={reporterName}
                 onChange={handleInputChange}
-                placeholder="Name"
               />
               {errors.reporterName && (
                 <p className="error">{errors.reporterName}</p>
@@ -186,7 +183,6 @@ function ReportIncidentForm() {
                 id="email"
                 value={reporterEmail}
                 onChange={handleInputChange}
-                placeholder="Email"
               />
               {errors.reporterEmail && (
                 <p className="error">{errors.reporterEmail}</p>

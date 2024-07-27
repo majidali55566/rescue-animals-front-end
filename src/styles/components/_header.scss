@@ -22,11 +22,16 @@ header {
     padding: 0;
     @include md {
       display: flex;
+      align-items: center;
     }
+
     li {
       a {
         text-decoration: none;
         color: $clr-neutral-900;
+        &:hover {
+          color: $clr-primary-400;
+        }
       }
     }
   }

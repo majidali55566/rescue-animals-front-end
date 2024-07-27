@@ -12,7 +12,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/report-incident" element={<ReportIncidentPage />} />
+        <Route
+          path="/report-animal-incident"
+          element={<ReportIncidentPage />}
+        />
         <Route path="/ngo-login" element={<NGOLoginPage />} />
         <Route path="/register-ngo" element={<NGORegistrationPage />} />
         <Route path="/ngo-management" element={<NgoManagement />} />

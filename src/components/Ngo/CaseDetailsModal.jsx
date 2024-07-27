@@ -27,14 +27,14 @@ const CaseDetailsModal = ({
     sx={{
       "& .MuiDialogContent-root": {
         padding: "1rem",
-        "@media (max-width: 600px)": {
-          padding: "0.5rem",
+        "@media (min-width: 600px)": {
+          padding: "4rem",
         },
       },
       "& .MuiDialogActions-root": {
         padding: "1rem",
         "@media (max-width: 600px)": {
-          padding: "0.5rem",
+          padding: ".5rem",
         },
       },
     }}
@@ -50,7 +50,7 @@ const CaseDetailsModal = ({
         },
       }}
     >
-      <h2>Animal: {caseData?.animalType}</h2>
+      <h4>Animal: {caseData?.animalType}</h4>
       <div
         style={{
           display: "flex",
@@ -80,14 +80,14 @@ const CaseDetailsModal = ({
       }}
     >
       <div className="d-flex items-center gap-400">
-        <p className="fs-800">Injury Description:</p>
+        <h4>Injury Description:</h4>
         <p className="fs-800">{caseData?.injuryDescription}</p>
       </div>
       <div className="d-flex flex-column gap-400">
-        <p className="fs-800">Location of injured Animal</p>
+        <h4>Location of injured Animal</h4>
         <LocationMarker caseLocation={caseData?.location} />
       </div>
-      <p className="fs-800">Images of Injured animal</p>
+      <h4>Images of Injured animal</h4>
       <div className="container">
         <div className="images-container">
           <Carousel showThumbs={true} selectedItem={0}>
@@ -108,9 +108,7 @@ const CaseDetailsModal = ({
             gap: "0.5rem",
           }}
         >
-          <p style={{ color: "black" }} className="fs-700">
-            Reporter Information
-          </p>
+          <h4>Reporter Information</h4>
           <div className="d-flex items-center">
             <Person />
             {caseData?.reporterInfo.name}
@@ -156,7 +154,7 @@ const CaseDetailsModal = ({
         <button className="btn">Mark Recoverd</button>
       )}
 
-      {caseData?.status === "New case" && (
+      {caseData?.status === "New" && (
         <button className="btn" onClick={onSave}>
           Rescue now
         </button>
