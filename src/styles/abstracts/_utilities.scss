@@ -164,6 +164,18 @@
   }
 }
 
+.menu-list {
+  display: grid;
+  gap: 0.2rem;
+  .menu-item {
+    .spec {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+  }
+}
+
 .container {
   display: grid;
   gap: 1rem;

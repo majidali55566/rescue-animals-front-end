@@ -7,6 +7,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
+  Typography,
 } from "@mui/material";
 
 const VolunteerManagement = () => {
@@ -83,13 +85,96 @@ const VolunteerManagement = () => {
     },
   ];
 
-  const [selectedVolunteer, setselectedVolunteer] = useState(null);
+  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
   const [IsModalOpen, setIsModalOpen] = useState(false);
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    location: "",
+    mobile: "",
+  });
+  const handleEdit = (volunteer) => {
+    setSelectedVolunteer(volunteer);
+    setFormValues(volunteer);
+    setIsModalOpen(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleUpdate = () => {
+    // Update the volunteer data (e.g., send a request to the server or update state)
+    console.log("Updated volunteer details:", formValues);
+    setIsModalOpen(false);
+  };
   return (
     <div className="volunteer-management">
-      <VolunteersTable data={volunteerData} />
-      <VolunteerRegisterForm />
-      {/* <Dialog open onClose={() => setIsModalOpen(false)}></Dialog> */}
+      <div>
+        <Typography variant="h4" gutterBottom>
+          Volunteer Management
+        </Typography>
+        <VolunteersTable data={volunteerData} handleEdit={handleEdit} />
+      </div>
+      <Dialog open={IsModalOpen} onClose={() => setIsModalOpen(false)}>
+        <DialogTitle>
+          <p>Ngo volunteer details</p>
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            name="name"
+            label="Name"
+            type="text"
+            fullWidth
+            value={formValues.name}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="email"
+            label="Email"
+            type="email"
+            fullWidth
+            value={formValues.email}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="location"
+            label="Location"
+            type="text"
+            fullWidth
+            value={formValues.location}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="mobile"
+            label="Mobile"
+            type="tel"
+            fullWidth
+            value={formValues.mobile}
+            onChange={handleInputChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button color="warning" onClick={() => setIsModalOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            sx={{ color: "white" }}
+            variant="contained"
+            onClick={handleUpdate}
+          >
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <div className="d-flex gap-400 flex-column">
+        <VolunteerRegisterForm />
+      </div>
     </div>
   );
 };

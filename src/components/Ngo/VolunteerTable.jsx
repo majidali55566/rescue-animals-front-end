@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Visibility } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 
@@ -38,19 +38,19 @@ function VolunteersTable({ data, handleEdit }) {
         size: 100,
         Cell: ({ row }) => (
           <Box sx={{ display: "flex", gap: "0.5rem" }}>
-            <button
+            <Button
+              variant="text"
               style={{
                 padding: "0.5rem",
                 fontSize: ".8rem",
                 fontWeight: "700",
               }}
               className="d-flex items-center btn-outlined"
-              color="hsl(129, 61%, 52%)"
               onClick={() => handleEdit(row.original)}
             >
               <Visibility fontSize="10px" />
               View
-            </button>
+            </Button>
           </Box>
         ),
       },

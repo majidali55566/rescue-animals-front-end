@@ -40,5 +40,34 @@
   }
 
   .volunteer-management {
+    @include section-padding;
+
+    .volunteer-register-form {
+      padding-top: 1rem;
+
+      input[type="text"],
+      input[type="email"] {
+        border: 1px solid $clr-neutral-800;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        &:hover,
+        :active,
+        :active {
+          border: 2px solid $clr-primary-400;
+        }
+      }
+
+      .form {
+        display: grid;
+        @include md {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+
+        .form-group {
+          display: grid;
+        }
+      }
+    }
   }
 }

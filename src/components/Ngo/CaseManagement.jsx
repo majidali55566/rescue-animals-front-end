@@ -8,8 +8,7 @@ import CaseTabs from "./CaseTabs";
 import CasesTable from "./CasesTable";
 import StatusBadge from "./StatusBadge";
 import { Visibility } from "@mui/icons-material";
-import VolunteerRegisterForm from "../form/VolunteerRegisterForm";
-// Example data
+
 const initialCasesData = [
   {
     id: 1,

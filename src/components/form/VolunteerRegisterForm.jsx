@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
@@ -31,33 +32,43 @@ function VolunteerRegisterForm() {
     >
       {({ isSubmitting }) => (
         <Form className="volunteer-register-form">
-          <div className="form-group">
-            <label htmlFor="name">NGO Name:</label>
-            <Field type="text" id="name" name="name" />
-            <ErrorMessage name="name" component="div" className="error" />
+          <Typography variant="h5" gutterBottom>
+            Add Ngo Volunteer
+          </Typography>
+          <div className="form">
+            <div className="form-group">
+              <label htmlFor="name">NGO Name:</label>
+              <Field type="text" id="name" name="name" />
+              <ErrorMessage name="name" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <Field type="email" id="email" name="email" />
+              <ErrorMessage name="email" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="address">Address:</label>
+              <Field type="text" id="address" name="address" />
+              <ErrorMessage name="address" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="location">Location:</label>
+              <Field type="text" id="location" name="location" />
+              <ErrorMessage name="location" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="mobile">Contact no:</label>
+              <Field type="text" id="mobile" name="mobile" />
+              <ErrorMessage name="mobile" component="div" className="error" />
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <Field type="email" id="email" name="email" />
-            <ErrorMessage name="email" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="address">Address:</label>
-            <Field type="text" id="address" name="address" />
-            <ErrorMessage name="address" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="location">Location:</label>
-            <Field type="text" id="location" name="location" />
-            <ErrorMessage name="location" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="mobile">Contact no:</label>
-            <Field type="text" id="mobile" name="mobile" />
-            <ErrorMessage name="mobile" component="div" className="error" />
-          </div>
-          <button type="submit" className="btn" disabled={isSubmitting}>
-            Register
+          <button
+            style={{ marginTop: "1rem" }}
+            type="submit"
+            className="btn"
+            disabled={isSubmitting}
+          >
+            Add new Volunteer
           </button>
         </Form>
       )}

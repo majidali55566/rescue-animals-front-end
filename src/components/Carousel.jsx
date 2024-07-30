@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import useWindowWidth from "../hooks/useWindowWidth";
 
 const ResponsiveCarousel = ({ images, imgStyles }) => {
   // State to store the screen width
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  // Function to update the window width state
-  const handleResize = () => setWindowWidth(window.innerWidth);
-
-  // Set up an effect to listen for window resize events
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const windowWidth = useWindowWidth();
 
   // Function to group images into pairs for larger screens or single images for smaller screens
   const groupImages = (images, groupSize) => {
@@ -27,7 +18,7 @@ const ResponsiveCarousel = ({ images, imgStyles }) => {
   // Determine group size based on screen width
   const groupSize = windowWidth < 768 ? 1 : 2;
   const groupedImages = groupImages(images, groupSize);
-
+  console.log(windowWidth);
   return (
     <Carousel
       showArrows={true}

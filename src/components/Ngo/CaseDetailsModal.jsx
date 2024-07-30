@@ -146,18 +146,25 @@ const CaseDetailsModal = ({
         justifyContent: "space-between",
       }}
     >
-      <Button onClick={onClose} color="secondary">
+      <Button onClick={onClose} color="warning">
         Cancel
       </Button>
 
       {caseData?.status === "UnderCare" && (
-        <button className="btn">Mark Recoverd</button>
+        <Button sx={{ color: "white" }} variant="contained" color="primary">
+          Mark Recoverd
+        </Button>
       )}
 
       {caseData?.status === "New" && (
-        <button className="btn" onClick={onSave}>
+        <Button
+          sx={{ color: "white" }}
+          variant="contained"
+          color="warning"
+          onClick={onSave}
+        >
           Rescue now
-        </button>
+        </Button>
       )}
     </DialogActions>
   </Dialog>

@@ -18,11 +18,12 @@ header {
   .nav-list {
     display: none;
     list-style: none;
-    gap: 3rem;
+    gap: 0.5rem;
     padding: 0;
-    @include md {
+    @media (min-width: 800px) {
       display: flex;
       align-items: center;
+      gap: 1rem;
     }
 
     li {
@@ -41,8 +42,9 @@ header {
     flex-direction: column;
     position: absolute;
     align-items: center;
+    padding: 2rem;
     padding-block: 2rem;
-    gap: 0;
+    gap: 1rem;
     left: 0;
     right: 0;
     top: 4rem;
@@ -51,21 +53,19 @@ header {
     width: 100%;
     li {
       width: 100%;
-      padding-block: 1rem;
-      text-align: center;
-      &:hover {
-        cursor: pointer;
-        background-color: $clr-primary-400;
-      }
+
       a {
         display: block;
         width: 100%;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
   #humburger-icon {
     display: flex;
-    @include md {
+    @media (min-width: 800px) {
       display: none;
     }
   }
