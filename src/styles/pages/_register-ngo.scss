@@ -14,9 +14,12 @@
   .registration-form {
     display: flex;
     flex-direction: column;
-    @include sm {
+    .detials-inputs {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      @include md {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     gap: 1rem;
     .form-group {
@@ -25,9 +28,20 @@
         display: grid;
       }
     }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
     input[type="text"],
     input[type="email"],
     input[type="password"],
+    input[type="number"],
     textarea {
       border: 1px solid $clr-neutral-800;
       border-radius: 0.5rem;
@@ -35,7 +49,7 @@
       &:hover,
       :active,
       :active {
-        border: 2px solid $clr-primary-400;
+        border: 1px solid $clr-primary-400;
       }
     }
     button {

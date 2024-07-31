@@ -128,6 +128,9 @@ function Header() {
         <li>
           <Link to="/ngo-management">ngo management</Link>
         </li>
+        <li>
+          <Link to="/admin/home">admin home</Link>
+        </li>
       </ul>
 
       <img

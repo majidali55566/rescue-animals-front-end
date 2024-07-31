@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useCallback, useRef, useEffect } from "react";
 import {
   GoogleMap,
@@ -16,7 +15,7 @@ const mapContainerStyle = {
 };
 const defaultCenter = { lat: -34.397, lng: 150.644 };
 
-function LocationSelector({ onSelectLocation }) {
+function LocationSelector() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Ensure this is set
     libraries,
@@ -24,6 +23,7 @@ function LocationSelector({ onSelectLocation }) {
 
   const [selected, setSelected] = useState(null);
   const [center, setCenter] = useState(defaultCenter);
+  const [placeName, setPlaceName] = useState("");
   const mapRef = useRef(null); // Reference to the Google Map instance
   const mapInstanceRef = useRef(null); // Reference to the Google Map instance for panTo
   const autocompleteRef = useRef(null); // Reference to the Autocomplete instance
@@ -31,17 +31,31 @@ function LocationSelector({ onSelectLocation }) {
   const [lng, setLng] = useState("");
 
   // Handle map clicks to update the selected location
-  const onMapClick = useCallback(
-    (event) => {
-      const location = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      };
-      setSelected(location);
-      onSelectLocation(location);
-    },
-    [onSelectLocation]
-  );
+  const onMapClick = useCallback(async (event) => {
+    const location = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    };
+    setSelected(location);
+    setCenter(location);
+
+    // Initialize the PlacesService
+    const service = new google.maps.places.PlacesService(mapRef.current);
+    const request = {
+      location: new google.maps.LatLng(location.lat, location.lng),
+      radius: "500",
+      type: ["address"],
+    };
+
+    // Perform a reverse geocoding request to get the place name
+    service.nearbySearch(request, (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
+        setPlaceName(results[0].vicinity || "Unknown Place");
+      } else {
+        setPlaceName("Place name not found");
+      }
+    });
+  }, []);
 
   // Handle map load
   const onMapLoad = useCallback((map) => {
@@ -52,6 +66,7 @@ function LocationSelector({ onSelectLocation }) {
   // Get current location using Geolocation API
   useEffect(() => {
     if (!selected) {
+      console.log("No selected");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -61,7 +76,6 @@ function LocationSelector({ onSelectLocation }) {
             };
             setCenter(currentLocation);
             setSelected(currentLocation);
-            onSelectLocation(currentLocation);
           },
           (error) => {
             console.error("Error getting current location:", error);
@@ -92,7 +106,6 @@ function LocationSelector({ onSelectLocation }) {
       };
       setCenter(location);
       setSelected(location);
-      onSelectLocation(location);
       mapInstanceRef.current.panTo(location);
     } else {
       console.error("No geometry found for the selected place.");
@@ -108,7 +121,6 @@ function LocationSelector({ onSelectLocation }) {
       };
       setCenter(location);
       setSelected(location);
-      onSelectLocation(location);
       mapInstanceRef.current.panTo(location);
     }
   };
@@ -178,6 +190,7 @@ function LocationSelector({ onSelectLocation }) {
             Selected Location: {selected.lat.toFixed(5)},{" "}
             {selected.lng.toFixed(5)}
           </p>
+          <p>Place Name: {placeName}</p>
           <GpsFixedOutlined onClick={handlePanToCenter} />
         </div>
       )}

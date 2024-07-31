@@ -7,7 +7,8 @@ import {
 } from "@mui/material";
 import StatusBadge from "./StatusBadge";
 import { CheckCircle, Email, Person, Phone } from "@mui/icons-material";
-import LocationMarker from "../location/LocationMarker";
+import AnimalLocator from "../location/AnimalLocator";
+
 import { Carousel } from "react-responsive-carousel";
 
 /* eslint-disable react/prop-types */
@@ -84,8 +85,16 @@ const CaseDetailsModal = ({
         <p className="fs-800">{caseData?.injuryDescription}</p>
       </div>
       <div className="d-flex flex-column gap-400">
-        <h4>Location of injured Animal</h4>
-        <LocationMarker caseLocation={caseData?.location} />
+        <h4>
+          {caseData?.status === "New"
+            ? "Direction of case from your NGO"
+            : "Location"}
+        </h4>
+        <AnimalLocator
+          ngoLocation={{ lat: 27.54534, lng: 68.76278 }}
+          animalLocation={{ lat: 27.53457, lng: 68.75948 }}
+          status={caseData?.status}
+        />
       </div>
       <h4>Images of Injured animal</h4>
       <div className="container">

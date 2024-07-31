@@ -106,20 +106,7 @@ const CreatePage = () => {
           setDescription(data);
         }}
       />
-      <TextField
-        label="Meta Title"
-        value={metaTitle}
-        onChange={(e) => setMetaTitle(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Meta Description"
-        value={metaDescription}
-        onChange={(e) => setMetaDescription(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
+
       <Typography variant="h6" gutterBottom>
         Upload Banner Image
       </Typography>
@@ -155,6 +142,20 @@ const CreatePage = () => {
           />
         </Box>
       )}
+      <TextField
+        label="Meta Title"
+        value={metaTitle}
+        onChange={(e) => setMetaTitle(e.target.value)}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Meta Description"
+        value={metaDescription}
+        onChange={(e) => setMetaDescription(e.target.value)}
+        fullWidth
+        margin="normal"
+      />
       <Button type="submit" variant="contained" sx={{ mt: 2, color: "white" }}>
         {uploading ? <CircularProgress size={24} /> : "Create Page"}
       </Button>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LocationSelector from "../location/LocationSelector";
 import StyledDropzone from "../StyledDropZone";
+import { Button } from "@mui/material";
 function ReportIncidentForm() {
   // Define state variables for form inputs
   const [animalType, setAnimalType] = useState("");
@@ -118,59 +119,66 @@ function ReportIncidentForm() {
 
   return (
     <div id="report-section" className="report-incident">
-      <h1>Report an Incident now</h1>
+      <h2 className="text-center">Report an Incident now</h2>
 
       <form onSubmit={handleSubmit} className="d-flex flex-column gap-400">
-        <p className="fw-bold">Animal Information</p>
-        <div className="d-flex flex-column gap-400">
-          <div className="d-flex flex-column">
-            <label htmlFor="type">Type of animal</label>
-            <input
-              id="type"
-              type="text"
-              value={animalType}
-              onChange={handleInputChange}
-            />
-            {errors.animalType && <p className="error">{errors.animalType}</p>}
-          </div>
-
-          <div className="d-flex flex-column">
-            <label htmlFor="description">Description of injury</label>
-            <textarea
-              id="description"
-              value={injuryDescription}
-              onChange={handleInputChange}
-            />
-            {errors.injuryDescription && (
-              <p className="error">{errors.injuryDescription}</p>
-            )}
-          </div>
-          <div className="d-flex flex-column">
-            <label htmlFor="images">Upload injured animal pics</label>
-            <StyledDropzone
-              onDrop={handleDrop}
-              files={images}
-              onRemove={handleRemove}
-            />
-          </div>
-        </div>
-        <div>
-          <div className="d-flex flex-column">
-            <label htmlFor="location">Location</label>
-            <LocationSelector onSelectLocation={setLocation} />
-            {errors.location && <p className="error">{errors.location}</p>}
-          </div>
-        </div>
-        <div className="d-flex flex-column gap-400">
-          <p className="fw-bold">Reporter information</p>
-          <div className="d-flex flex-column justify-between">
+        <div className="animal-info-container">
+          <h3>Animal Information</h3>
+          <div className="d-flex flex-column gap-400">
             <div className="d-flex flex-column">
-              <label htmlFor="name">Your name</label>
+              <label htmlFor="type">Animal Name</label>
+              <input
+                id="type"
+                type="text"
+                value={animalType}
+                onChange={handleInputChange}
+                placeholder="Enter animal name"
+              />
+              {errors.animalType && (
+                <p className="error">{errors.animalType}</p>
+              )}
+            </div>
+
+            <div className="d-flex flex-column">
+              <label htmlFor="description">Description of injury</label>
+              <textarea
+                id="description"
+                value={injuryDescription}
+                onChange={handleInputChange}
+                placeholder="enter description of injury..."
+              />
+              {errors.injuryDescription && (
+                <p className="error">{errors.injuryDescription}</p>
+              )}
+            </div>
+            <div className="d-flex flex-column">
+              <label htmlFor="images">Upload injured animal pics</label>
+              <StyledDropzone
+                onDrop={handleDrop}
+                files={images}
+                onRemove={handleRemove}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="location-container d-flex flex-column">
+          <h3>Location of incident</h3>
+          <LocationSelector onSelectLocation={setLocation} />
+          {errors.location && <p className="error">{errors.location}</p>}
+        </div>
+
+        <div className="reporter-container d-flex flex-column gap-400">
+          <h3>Reporter information</h3>
+          <div className="d-flex flex-column justify-between gap-400">
+            <div className="d-flex flex-column">
+              <label htmlFor="name">Your Full name</label>
               <input
                 type="text"
                 id="name"
                 value={reporterName}
                 onChange={handleInputChange}
+                placeholder="Enter full name"
               />
               {errors.reporterName && (
                 <p className="error">{errors.reporterName}</p>
@@ -183,16 +191,17 @@ function ReportIncidentForm() {
                 id="email"
                 value={reporterEmail}
                 onChange={handleInputChange}
+                placeholder="Enter your email address"
               />
               {errors.reporterEmail && (
                 <p className="error">{errors.reporterEmail}</p>
               )}
             </div>
+            <Button sx={{ color: "white" }} variant="contained">
+              Submit now
+            </Button>
           </div>
         </div>
-        <button className="btn" type="submit">
-          Submit Report
-        </button>
       </form>
     </div>
   );

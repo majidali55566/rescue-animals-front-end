@@ -1,6 +1,8 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Header from "../components/Header";
+import LocationSelector from "../components/location/LocationSelector";
+import { useState } from "react";
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
@@ -16,6 +18,10 @@ const validationSchema = Yup.object({
 });
 
 const NGORegistrationPage = () => {
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+  };
   const handleSubmit = (values) => {
     // Handle form submission
     console.log("NGO Details:", values);
@@ -42,56 +48,61 @@ const NGORegistrationPage = () => {
         >
           {({ isSubmitting }) => (
             <Form className="registration-form">
-              <div className="form-group">
-                <label htmlFor="name">NGO Name:</label>
-                <Field type="text" id="name" name="name" />
-                <ErrorMessage name="name" component="div" className="error" />
+              <div className="detials-inputs">
+                <div className="form-group">
+                  <label htmlFor="name">NGO Name:</label>
+                  <Field type="text" id="name" name="name" />
+                  <ErrorMessage name="name" component="div" className="error" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email:</label>
+                  <Field type="email" id="email" name="email" />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password:</label>
+                  <Field type="password" id="password" name="password" />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="address">Address:</label>
+                  <Field type="text" id="address" name="address" />
+                  <ErrorMessage
+                    name="address"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="pincode">Pincode:</label>
+                  <Field type="text" id="pincode" name="pincode" />
+                  <ErrorMessage
+                    name="pincode"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="mobile">Mobile Number:</label>
+                  <Field type="text" id="mobile" name="mobile" />
+                  <ErrorMessage
+                    name="mobile"
+                    component="div"
+                    className="error"
+                  />
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <Field type="email" id="email" name="email" />
-                <ErrorMessage name="email" component="div" className="error" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password:</label>
-                <Field type="password" id="password" name="password" />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="error"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="address">Address:</label>
-                <Field type="text" id="address" name="address" />
-                <ErrorMessage
-                  name="address"
-                  component="div"
-                  className="error"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="location">Location:</label>
-                <Field type="text" id="location" name="location" />
-                <ErrorMessage
-                  name="location"
-                  component="div"
-                  className="error"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="pincode">Pincode:</label>
-                <Field type="text" id="pincode" name="pincode" />
-                <ErrorMessage
-                  name="pincode"
-                  component="div"
-                  className="error"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="mobile">Mobile Number:</label>
-                <Field type="text" id="mobile" name="mobile" />
-                <ErrorMessage name="mobile" component="div" className="error" />
+              <div>
+                <LocationSelector onSelectLocation={handleLocationSelect} />
               </div>
 
               <button type="submit" className="btn" disabled={isSubmitting}>
