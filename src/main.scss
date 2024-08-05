@@ -8,8 +8,11 @@
 @use "./styles/base/reset";
 @use "./styles/base/typography";
 
+//Layout
+@use "./styles/layout/header";
+@use "./styles/layout/footer";
+
 // components
-@use "./styles/components/header";
 @use "./styles/components/styledDropZone";
 @use "./styles/components/ngo-login";
 //pages

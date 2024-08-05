@@ -29,7 +29,6 @@ function LocationSelector({ onSelectLocation }) {
   const autocompleteRef = useRef(null); // Reference to the Autocomplete instance
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
-
   // Handle map clicks to update the selected location
   const onMapClick = useCallback(
     (event) => {
@@ -167,6 +166,7 @@ function LocationSelector({ onSelectLocation }) {
           center={selected || center}
           onClick={onMapClick}
           onLoad={onMapLoad}
+          options={{ mapId: "ebc91f1d10dbaf3e" }}
         >
           {selected && <MarkerF position={selected} />}
         </GoogleMap>

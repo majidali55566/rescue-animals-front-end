@@ -7,20 +7,20 @@ import {
   Box,
   CircularProgress,
 } from "@mui/material";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CloudinaryUploadAdapterPlugin from "./CloudinaryUploadAdaptor";
+
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
+import CkCustomEditor from "./CkCustomEditor";
+import PagesDropDown from "./PagesDropDown";
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [bannerImage, setBannerImage] = useState(null);
   const [bannerImageUrl, setBannerImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [pageData, setpageData] = useState("");
 
   const navigate = useNavigate();
 
@@ -61,8 +61,8 @@ const CreatePage = () => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("description", description);
     formData.append("metaTitle", metaTitle);
+    formData.append("pageData", pageData);
     formData.append("metaDescription", metaDescription);
     formData.append("bannerImage", bannerImageUrl);
 
@@ -85,6 +85,7 @@ const CreatePage = () => {
       <Typography variant="h4" gutterBottom>
         Create Page
       </Typography>
+      <PagesDropDown />
       <TextField
         label="Title"
         value={title}
@@ -95,17 +96,8 @@ const CreatePage = () => {
       <Typography variant="h6" gutterBottom>
         Description
       </Typography>
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          extraPlugins: [CloudinaryUploadAdapterPlugin],
-        }}
-        data={description}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setDescription(data);
-        }}
-      />
+
+      <CkCustomEditor pageData={pageData} setpageData={setpageData} />
 
       <Typography variant="h6" gutterBottom>
         Upload Banner Image

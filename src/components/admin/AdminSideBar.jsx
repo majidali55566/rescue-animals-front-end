@@ -1,26 +1,30 @@
 /* eslint-disable react/prop-types */
 import {
+  Box,
   Drawer,
   List,
   ListItemButton,
   ListItemText,
-  Collapse,
+  ListItemIcon,
   Toolbar,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Home, Person, Add } from "@mui/icons-material";
 
 const AdminSideBar = ({ open, onClose, variant }) => {
-  const [openHomeMenu, setOpenHomeMenu] = useState(false);
+  const location = useLocation();
 
-  const homeMenuItems = [
-    { label: "About Us", link: "/home/about-us" },
-    { label: "Why Us", link: "/home/why-us" },
-    { label: "Mission & Vision", link: "/home/mission-vision" },
-    // Add more items as needed
-  ];
+  // Helper function to determine if the current path matches
+  const isActive = (path) => location.pathname === path;
+
+  // Helper function to apply styles conditionally
+  const getStyles = (path) => ({
+    color: isActive(path) ? "primary.main" : "inherit",
+    bgcolor: isActive(path) ? "rgba(0, 0, 0, 0.1)" : "transparent",
+    "&:hover": {
+      bgcolor: isActive(path) ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.05)",
+    },
+  });
 
   return (
     <Drawer
@@ -38,27 +42,63 @@ const AdminSideBar = ({ open, onClose, variant }) => {
       }}
     >
       <Toolbar />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          padding: 2,
+        }}
+      >
+        <img
+          src="/images/logo.png"
+          alt="Logo"
+          style={{ width: "5rem", height: "5rem", marginRight: "8px" }}
+        />
+        <h4>Raksha Animal</h4>
+      </Box>
       <List>
-        <ListItemButton onClick={() => setOpenHomeMenu(!openHomeMenu)}>
-          <ListItemText primary="Home" />
-          {openHomeMenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        <ListItemButton
+          component={Link}
+          to="/admin/home"
+          sx={getStyles("/admin/home")}
+        >
+          <ListItemIcon
+            sx={{ color: isActive("/admin/home") ? "primary.main" : "inherit" }}
+          >
+            <Home />
+          </ListItemIcon>
+          <ListItemText primary="Admin Home" />
         </ListItemButton>
-        <Collapse in={openHomeMenu} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {homeMenuItems.map((item, index) => (
-              <ListItemButton key={index} component={Link} to={item.link}>
-                <ListItemText primary={item.label} sx={{ pl: 4 }} />
-              </ListItemButton>
-            ))}
-          </List>
-        </Collapse>
-        <ListItemButton component={Link} to="/report-animal-incident">
-          <ListItemText primary="Report Animal Incident" />
+        <ListItemButton
+          component={Link}
+          to="/admin/profile"
+          sx={getStyles("/admin/profile")}
+        >
+          <ListItemIcon
+            sx={{
+              color: isActive("/admin/profile") ? "primary.main" : "inherit",
+            }}
+          >
+            <Person />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
         </ListItemButton>
-        <ListItemButton component={Link} to="/register-ngo">
-          <ListItemText primary="Register Your NGO" />
+        <ListItemButton
+          component={Link}
+          to="/admin/create-new-page"
+          sx={getStyles("/admin/create-new-page")}
+        >
+          <ListItemIcon
+            sx={{
+              color: isActive("/admin/create-new-page")
+                ? "primary.main"
+                : "inherit",
+            }}
+          >
+            <Add />
+          </ListItemIcon>
+          <ListItemText primary="Create a new Page" />
         </ListItemButton>
-        {/* Add more items as needed */}
       </List>
     </Drawer>
   );

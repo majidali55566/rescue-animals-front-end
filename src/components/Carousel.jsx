@@ -18,7 +18,6 @@ const ResponsiveCarousel = ({ images, imgStyles }) => {
   // Determine group size based on screen width
   const groupSize = windowWidth < 768 ? 1 : 2;
   const groupedImages = groupImages(images, groupSize);
-  console.log(windowWidth);
   return (
     <Carousel
       showArrows={true}

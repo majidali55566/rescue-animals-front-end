@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
-
+import axios from "axios";
+import sha1 from "sha1";
 const baseStyle = {
   flex: 1,
   display: "flex",
@@ -30,7 +31,19 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
-function StyledDropzone({ onDrop, files, onRemove }) {
+function StyledDropzone({
+  onDrop,
+  files,
+  onRemove,
+  cloudinaryUploadUrl,
+  cloudinaryPreset,
+  cloudinaryDeleteUrl,
+  maxFiles = 10,
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const {
     getRootProps,
     getInputProps,
@@ -41,9 +54,85 @@ function StyledDropzone({ onDrop, files, onRemove }) {
     fileRejections,
   } = useDropzone({
     accept: { "image/*": [] },
-    maxFiles: 10,
-    onDrop,
+    maxFiles,
+    onDrop: async (acceptedFiles) => {
+      setUploading(true);
+      const uploaded = await handleUpload(acceptedFiles);
+      setUploadedFiles((prev) => [...prev, ...uploaded]);
+      setUploading(false);
+      if (onDrop) onDrop(uploaded);
+    },
   });
+
+  const handleUpload = async (files) => {
+    const uploads = files.map(async (file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", cloudinaryPreset);
+
+      try {
+        const response = await axios.post(cloudinaryUploadUrl, formData, {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        });
+        return {
+          url: response.data.secure_url,
+          public_id: response.data.public_id,
+        };
+      } catch (error) {
+        console.error("Error uploading to Cloudinary:", error);
+        return null;
+      }
+    });
+
+    return Promise.all(uploads);
+  };
+
+  const handleDelete = async (file) => {
+    if (!file.public_id) {
+      console.error("File does not have a public_id");
+      return;
+    }
+
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const apiKey = import.meta.env.VITE_CLOUDINARY_API_KEY;
+    const apiSecret = import.meta.env.VITE_CLOUDINARY_API_SECRET;
+
+    console.log("Cloud Name:", cloudName);
+    console.log("API Key:", apiKey);
+    console.log("API Secret:", apiSecret);
+
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;
+
+    const timestamp = new Date().getTime();
+    const string = `public_id=${file.public_id}&timestamp=${timestamp}${apiSecret}`;
+    const signature = sha1(string);
+
+    const formData = new FormData();
+    formData.append("public_id", file.public_id);
+    formData.append("signature", signature);
+    formData.append("api_key", apiKey);
+    formData.append("timestamp", timestamp);
+
+    try {
+      const response = await axios.post(url, formData, {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      });
+
+      if (response.data.result === "ok") {
+        setUploadedFiles((prev) =>
+          prev.filter((f) => f.public_id !== file.public_id)
+        );
+        if (onRemove) onRemove(file);
+      } else {
+        console.error("Failed to delete image:", response.data);
+      }
+    } catch (error) {
+      console.error(
+        "Error deleting from Cloudinary:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
 
   const style = useMemo(
     () => ({
@@ -55,26 +144,33 @@ function StyledDropzone({ onDrop, files, onRemove }) {
     [isFocused, isDragAccept, isDragReject]
   );
 
-  // Incorporate files prop if needed
-  const fileList = (files || acceptedFiles).map((file) => (
-    <div key={file.path} className="preview-item">
+  const fileList = (files || uploadedFiles).map((file, index) => (
+    <div key={index} className="preview-item" style={{ position: "relative" }}>
       <img
-        src={URL.createObjectURL(file)}
-        alt={file.path}
+        src={file.url}
+        alt={`uploaded ${index}`}
         style={{ width: 100, height: 100, objectFit: "cover" }}
+        onClick={() => setSelectedFile(file)}
       />
-      <svg
-        className="remove-svg-icon"
-        onClick={() => onRemove(file)}
-        xmlns="http://www.w3.org/2000/svg"
-        x="0px"
-        y="0px"
-        width="30"
-        height="30"
-        viewBox="0 0 30 30"
-      >
-        <path d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-      </svg>
+      {selectedFile === file && (
+        <button
+          onClick={() => handleDelete(file)}
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            background: "red",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            width: "20px",
+            height: "20px",
+            cursor: "pointer",
+          }}
+        >
+          X
+        </button>
+      )}
     </div>
   ));
 
@@ -89,8 +185,11 @@ function StyledDropzone({ onDrop, files, onRemove }) {
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
+        {uploading && <p>Uploading...</p>}
       </div>
-      <div className="preview d-flex gap-400">{fileList}</div>
+      <div className="preview d-flex gap-400">
+        {uploading ? <p>Uploading...</p> : fileList}
+      </div>
       <div className="errors">{errorList}</div>
     </div>
   );

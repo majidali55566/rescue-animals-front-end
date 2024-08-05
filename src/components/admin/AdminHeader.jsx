@@ -8,7 +8,6 @@ const AdminHeader = ({ toggleSidebar }) => {
       position="fixed"
       sx={{
         padding: "1rem 2rem",
-
         zIndex: (theme) => theme.zIndex.drawer - 1,
       }}
     >

@@ -1,9 +1,7 @@
-import CreatePage from "./CreatePage";
-
 const AdminHomePage = () => {
   return (
     <div>
-      <CreatePage />
+      <h1>This is home admin page</h1>
     </div>
   );
 };

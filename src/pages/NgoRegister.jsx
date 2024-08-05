@@ -1,6 +1,5 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Header from "../components/Header";
 import LocationSelector from "../components/location/LocationSelector";
 import { useState } from "react";
 
@@ -28,91 +27,80 @@ const NGORegistrationPage = () => {
   };
 
   return (
-    <>
-      <Header />
-      <div className="registration-container">
-        <h1>NGO Registration</h1>
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            password: "",
-            address: "",
-            location: "",
-            pincode: "",
-            mobile: "",
-            volunteers: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className="registration-form">
-              <div className="detials-inputs">
-                <div className="form-group">
-                  <label htmlFor="name">NGO Name:</label>
-                  <Field type="text" id="name" name="name" />
-                  <ErrorMessage name="name" component="div" className="error" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email:</label>
-                  <Field type="email" id="email" name="email" />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="error"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password:</label>
-                  <Field type="password" id="password" name="password" />
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className="error"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="address">Address:</label>
-                  <Field type="text" id="address" name="address" />
-                  <ErrorMessage
-                    name="address"
-                    component="div"
-                    className="error"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="pincode">Pincode:</label>
-                  <Field type="text" id="pincode" name="pincode" />
-                  <ErrorMessage
-                    name="pincode"
-                    component="div"
-                    className="error"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="mobile">Mobile Number:</label>
-                  <Field type="text" id="mobile" name="mobile" />
-                  <ErrorMessage
-                    name="mobile"
-                    component="div"
-                    className="error"
-                  />
-                </div>
+    <div className="registration-container">
+      <h1>NGO Registration</h1>
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          address: "",
+          location: "",
+          pincode: "",
+          mobile: "",
+          volunteers: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form className="registration-form">
+            <div className="detials-inputs">
+              <div className="form-group">
+                <label htmlFor="name">NGO Name:</label>
+                <Field type="text" id="name" name="name" />
+                <ErrorMessage name="name" component="div" className="error" />
               </div>
-              <div>
-                <LocationSelector onSelectLocation={handleLocationSelect} />
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <Field type="email" id="email" name="email" />
+                <ErrorMessage name="email" component="div" className="error" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password:</label>
+                <Field type="password" id="password" name="password" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="address">Address:</label>
+                <Field type="text" id="address" name="address" />
+                <ErrorMessage
+                  name="address"
+                  component="div"
+                  className="error"
+                />
               </div>
 
-              <button type="submit" className="btn" disabled={isSubmitting}>
-                Register
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </>
+              <div className="form-group">
+                <label htmlFor="pincode">Pincode:</label>
+                <Field type="text" id="pincode" name="pincode" />
+                <ErrorMessage
+                  name="pincode"
+                  component="div"
+                  className="error"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="mobile">Mobile Number:</label>
+                <Field type="text" id="mobile" name="mobile" />
+                <ErrorMessage name="mobile" component="div" className="error" />
+              </div>
+            </div>
+            <div>
+              <LocationSelector onSelectLocation={handleLocationSelect} />
+            </div>
+
+            <button type="submit" className="btn" disabled={isSubmitting}>
+              Register
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 

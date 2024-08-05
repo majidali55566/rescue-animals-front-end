@@ -1,15 +1,9 @@
-import Header from "./components/Header";
+/* eslint-disable react/prop-types */
+
 import HomePage from "./pages/HomePage";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <main>
-        <HomePage />
-      </main>
-    </>
-  );
+  return <HomePage />;
 }
 
 export default App;

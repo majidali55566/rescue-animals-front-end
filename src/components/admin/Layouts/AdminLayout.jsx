@@ -11,7 +11,7 @@ const AdminLayout = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
   const isSmallScreen = windowWidth < 800;
-  const variant = isSmallScreen ? "temporary" : "permanent";
+  const variant = isSmallScreen ? "temporary" : "temporary";
 
   return (
     <>
@@ -23,7 +23,6 @@ const AdminLayout = () => {
       />
       <main
         style={{
-          marginLeft: !isSmallScreen ? "240px" : "0",
           transition: "margin 0.3s",
           padding: "20px",
           marginTop: "5rem", // Adjust based on header height

@@ -1,12 +1,6 @@
 import ReportIncidentForm from "../components/form/ReportIncidentForm";
-import Header from "../components/Header";
 function ReportIncidentPage() {
-  return (
-    <>
-      <Header />
-      <ReportIncidentForm />
-    </>
-  );
+  return <ReportIncidentForm />;
 }
 
 export default ReportIncidentPage;
